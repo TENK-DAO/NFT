@@ -19,7 +19,7 @@ use near_contract_standards::non_fungible_token::metadata::{
     NFTContractMetadata, NonFungibleTokenMetadataProvider, TokenMetadata, NFT_METADATA_SPEC,
 };
 use near_contract_standards::non_fungible_token::NonFungibleToken;
-use near_contract_standards::non_fungible_token::{Token, TokenId};
+use near_contract_standards::non_fungible_token::{Token, TokenId, events::NftMint};
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::LazyOption;
 use near_sdk::serde::{Deserialize, Serialize};
@@ -144,6 +144,7 @@ impl Contract {
             extra: None,
             reference_hash: None,
         };
+        NftMint { owner_id: &token_owner_id, token_ids: &[token_id.as_str()], memo: None }.emit();
         self.tokens
             .internal_mint_with_refund(token_id, token_owner_id, Some(token_metadata), None)
     }
