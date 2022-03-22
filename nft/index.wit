@@ -1,70 +1,6 @@
-// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (witme v0.1.0) 
+// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (witme v0.2.2) 
 
-// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (cargo-witgen v0.0.2) 
-
-record storage-balance-bounds {
-    min: u128,
-	max: option<u128>
-}
-
-record fungible-token-metadata {
-    spec: string,
-	name: string,
-	symbol: string,
-	icon: option<string>,
-	reference: option<string>,
-	reference-hash: option<base64-vec-u8>,
-	decimals: u8
-}
-
-///  In this implementation, the Token struct takes two extensions standards (metadata and approval) as optional fields, as they are frequently used in modern NFTs.
-record token {
-    token-id: token-id,
-	owner-id: account-id,
-	metadata: option<token-metadata>,
-	approved-account-ids: option<list<tuple<account-id,u64>>>
-}
-
-///  Note that token IDs for NFTs are strings on NEAR. It's still fine to use autoincrementing numbers as unique IDs if desired, but they should be stringified. This is to make IDs more future-proof as chain-agnostic conventions and standards arise, and allows for more flexibility with considerations like bridging NFTs across chains, etc.
-type token-id = string
-
-record storage-balance {
-    total: u128,
-	available: u128
-}
-
-type wrapped-duration = string
-
-///  Metadata on the individual token level.
-record token-metadata {
-    title: option<string>,
-	description: option<string>,
-	media: option<string>,
-	media-hash: option<base64-vec-u8>,
-	copies: option<u64>,
-	issued-at: option<string>,
-	expires-at: option<string>,
-	starts-at: option<string>,
-	updated-at: option<string>,
-	extra: option<string>,
-	reference: option<string>,
-	reference-hash: option<base64-vec-u8>
-}
-
-///  Metadata for the NFT contract itself.
-record nft-contract-metadata {
-    spec: string,
-	name: string,
-	symbol: string,
-	icon: option<string>,
-	base-uri: option<string>,
-	reference: option<string>,
-	reference-hash: option<base64-vec-u8>
-}
-
-
-
-// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (cargo-witgen v0.0.2) 
+// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (witme v0.2.0) 
 
 ///  StorageUsage is used to count the amount of storage used by a contract.
 type storage-usage = u64
@@ -81,6 +17,13 @@ type base64-vec-u8 = string
 ///  Raw type for duration in nanoseconds
 type duration = u64
 
+///  @minLength 2
+///  @maxLength 64
+///  @pattern ^(([a-z\d]+[-_])*[a-z\d]+\.)*([a-z\d]+[-_])*[a-z\d]+$
+type account-id = string
+
+///  String representation of a u128-bit integer
+///  @pattern ^[0-9]+$
 type u128 = string
 
 ///  Public key in a binary format with base58 string serialization with human-readable curve.
@@ -89,19 +32,84 @@ type u128 = string
 ///  Ed25519 public keys accepted are 32 bytes and secp256k1 keys are the uncompressed 64 format.
 type public-key = string
 
-type account-id = string
-
 ///  Raw type for timestamp in nanoseconds
 type timestamp = u64
 
-nft-total-supply: function() -> u128
+// This is a generated file by witgen (https://github.com/bnjjj/witgen), please do not edit yourself, you can generate a new one thanks to cargo witgen generate command. (witme v0.1.0) 
 
+///  In this implementation, the Token struct takes two extensions standards (metadata and approval) as optional fields, as they are frequently used in modern NFTs.
+record token {
+    token-id: token-id,
+    owner-id: account-id,
+    metadata: option<token-metadata>,
+    approved-account-ids: option<list<tuple<account-id,u64>>>
+}
 
-nft-tokens: function(from-index: option<u128>, limit: option<u64>) -> list<token>
+record fungible-token-metadata {
+    spec: string,
+    name: string,
+    symbol: string,
+    icon: option<string>,
+    reference: option<string>,
+    reference-hash: option<base64-vec-u8>,
+    decimals: u8
+}
 
+///  Note that token IDs for NFTs are strings on NEAR. It's still fine to use autoincrementing numbers as unique IDs if desired, but they should be stringified. This is to make IDs more future-proof as chain-agnostic conventions and standards arise, and allows for more flexibility with considerations like bridging NFTs across chains, etc.
+type token-id = string
 
+///  Metadata for the NFT contract itself.
+record nft-contract-metadata {
+    spec: string,
+    name: string,
+    symbol: string,
+    icon: option<string>,
+    base-uri: option<string>,
+    reference: option<string>,
+    reference-hash: option<base64-vec-u8>
+}
+
+record storage-balance-bounds {
+    min: u128,
+    max: option<u128>
+}
+
+///  Metadata on the individual token level.
+record token-metadata {
+    title: option<string>,
+    description: option<string>,
+    media: option<string>,
+    media-hash: option<base64-vec-u8>,
+    copies: option<u64>,
+    issued-at: option<string>,
+    expires-at: option<string>,
+    starts-at: option<string>,
+    updated-at: option<string>,
+    extra: option<string>,
+    reference: option<string>,
+    reference-hash: option<base64-vec-u8>
+}
+
+record storage-balance {
+    total: u128,
+    available: u128
+}
+
+type wrapped-duration = string
+
+///  Revoke all approved accounts for a specific token.
+/// 
+///  Requirements
+///  * Caller of the method must attach a deposit of 1 yoctoⓃ for security
+///    purposes
+///  * If contract requires >1yN deposit on `nft_approve`, contract
+///    MUST refund all associated storage deposit when owner revokes approvals
+///  * Contract MUST panic if called by someone other than token owner
+/// 
+///  Arguments:
+///  * `token_id`: the token with approvals to revoke
 ///  change
-nft-approve: function(token-id: token-id, account-id: account-id, msg: option<string>)
+nft-revoke-all: function(token-id: token-id)
 
 ///  Simple transfer. Transfer a given `token_id` from current owner to
 ///  `receiver_id`.
@@ -127,6 +135,32 @@ nft-approve: function(token-id: token-id, account-id: account-id, msg: option<st
 ///     providing information for a transfer
 ///  change
 nft-transfer: function(receiver-id: account-id, token-id: token-id, approval-id: option<u64>, memo: option<string>)
+
+///  Check if a token is approved for transfer by a given account, optionally
+///  checking an approval_id
+/// 
+///  Arguments:
+///  * `token_id`: the token for which to revoke an approval
+///  * `approved_account_id`: the account to check the existence of in `approvals`
+///  * `approval_id`: an optional approval ID to check against current approval ID for given account
+/// 
+///  Returns:
+///  if `approval_id` given, `true` if `approved_account_id` is approved with given `approval_id`
+///  otherwise, `true` if `approved_account_id` is in list of approved accounts
+nft-is-approved: function(token-id: token-id, approved-account-id: account-id, approval-id: option<u64>) -> bool
+
+
+///  Get a list of all tokens
+/// 
+///  Arguments:
+///  * `from_index`: a string representing an unsigned 128-bit integer,
+///     representing the starting index of tokens to return. (default 0)
+///  * `limit`: the maximum number of tokens to return (default total supply)
+///             Could fail on gas
+/// 
+///  Returns an array of Token objects, as described in Core standard
+nft-tokens: function(from-index: option<u128>, limit: option<u64>) -> list<token>
+
 
 ///  Transfer token and call a method on a receiver contract. A successful
 ///  workflow will end in a success execution outcome to the callback on the NFT
@@ -169,9 +203,57 @@ nft-transfer-call: function(receiver-id: account-id, token-id: token-id, approva
 ///  change
 new-default-meta: function(owner-id: account-id)
 
+///  Revoke an approved account for a specific token.
+/// 
+///  Requirements
+///  * Caller of the method must attach a deposit of 1 yoctoⓃ for security
+///    purposes
+///  * If contract requires >1yN deposit on `nft_approve`, contract
+///    MUST refund associated storage deposit when owner revokes approval
+///  * Contract MUST panic if called by someone other than token owner
+/// 
+///  Arguments:
+///  * `token_id`: the token for which to revoke an approval
+///  * `account_id`: the account to remove from `approvals`
+///  change
+nft-revoke: function(token-id: token-id, account-id: account-id)
+
 ///  Returns the token with the given `token_id` or `null` if no such token.
 nft-token: function(token-id: token-id) -> option<token>
 
+
+///  change
+new: function(owner-id: account-id, metadata: initial-metadata)
+
+///  Returns the total supply of non-fungible tokens as a string representing an
+///  unsigned 128-bit integer to avoid JSON number limit of 2^53.
+nft-total-supply: function() -> u128
+
+
+///  Add an approved account for a specific token.
+/// 
+///  Requirements
+///  * Caller of the method must attach a deposit of at least 1 yoctoⓃ for
+///    security purposes
+///  * Contract MAY require caller to attach larger deposit, to cover cost of
+///    storing approver data
+///  * Contract MUST panic if called by someone other than token owner
+///  * Contract MUST panic if addition would cause `nft_revoke_all` to exceed
+///    single-block gas limit
+///  * Contract MUST increment approval ID even if re-approving an account
+///  * If successfully approved or if had already been approved, and if `msg` is
+///    present, contract MUST call `nft_on_approve` on `account_id`. See
+///    `nft_on_approve` description below for details.
+/// 
+///  Arguments:
+///  * `token_id`: the token for which to add an approval
+///  * `account_id`: the account to add to `approvals`
+///  * `msg`: optional string to be passed to `nft_on_approve`
+/// 
+///  Returns void, if no `msg` given. Otherwise, returns promise call to
+///  `nft_on_approve`, which can resolve with whatever it wants.
+///  change
+nft-approve: function(token-id: token-id, account-id: account-id, msg: option<string>)
 
 ///  Mint a new token with ID=`token_id` belonging to `token_owner_id`.
 /// 
@@ -185,24 +267,48 @@ nft-token: function(token-id: token-id) -> option<token>
 nft-mint: function(token-id: token-id, token-owner-id: account-id, token-metadata: token-metadata) -> token
 
 
-///  change
-nft-revoke-all: function(token-id: token-id)
+///  Get number of tokens owned by a given account
+/// 
+///  Arguments:
+///  * `account_id`: a valid NEAR account
+/// 
+///  Returns the number of non-fungible tokens owned by given `account_id` as
+///  a string representing the value as an unsigned 128-bit integer to avoid JSON
+///  number limit of 2^53.
+nft-supply-for-owner: function(account-id: account-id) -> u128
 
-///  change
-nft-revoke: function(token-id: token-id, account-id: account-id)
 
 nft-metadata: function() -> nft-contract-metadata
 
 
-nft-is-approved: function(token-id: token-id, approved-account-id: account-id, approval-id: option<u64>) -> bool
+record initial-metadata {
+    name: string,
+    symbol: string,
+    uri: string,
+    icon: option<string>,
+    spec: option<string>,
+    reference: option<string>,
+    reference-hash: option<base64-vec-u8>
+}
 
-
+///  Get list of all tokens owned by a given account
+/// 
+///  Arguments:
+///  * `account_id`: a valid NEAR account
+///  * `from_index`: a string representing an unsigned 128-bit integer,
+///     representing the starting index of tokens to return. (default 0)
+///  * `limit`: the maximum number of tokens to return. (default unlimited)
+///             Could fail on gas
+/// 
+///  Returns a paginated list of all tokens owned by this account
 nft-tokens-for-owner: function(account-id: account-id, from-index: option<u128>, limit: option<u64>) -> list<token>
 
 
-nft-supply-for-owner: function(account-id: account-id) -> u128
+///  change
+nft-mint-two: function(token-owner-id: account-id) -> token
 
 
 ///  change
-new: function(owner-id: account-id, metadata: nft-contract-metadata)
+nft-mint-one: function(token-owner-id: account-id) -> token
+
 
