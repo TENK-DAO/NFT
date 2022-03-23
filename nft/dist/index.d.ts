@@ -412,6 +412,27 @@ export declare class Contract {
         msg: string;
     }, options?: ChangeMethodOptions): transactions.Action;
     /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    new_default_meta(args: {
+        owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<void>;
+    /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    new_default_metaRaw(args: {
+        owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<providers.FinalExecutionOutcome>;
+    /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    new_default_metaTx(args: {
+        owner_id: AccountId;
+    }, options?: ChangeMethodOptions): transactions.Action;
+    /**
     * Revoke an approved account for a specific token.
     *
     * Requirements
@@ -651,6 +672,24 @@ export declare class Contract {
         from_index?: U128;
         limit?: u64;
     }, options?: ViewFunctionOptions): Promise<Token[]>;
+    nft_mint_two(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<Token>;
+    nft_mint_twoRaw(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<providers.FinalExecutionOutcome>;
+    nft_mint_twoTx(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): transactions.Action;
+    nft_mint_one(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<Token>;
+    nft_mint_oneRaw(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): Promise<providers.FinalExecutionOutcome>;
+    nft_mint_oneTx(args: {
+        token_owner_id: AccountId;
+    }, options?: ChangeMethodOptions): transactions.Action;
 }
 /**
 * Revoke all approved accounts for a specific token.
@@ -831,6 +870,29 @@ export interface NftTransferCall {
     };
 }
 export declare type NftTransferCall__Result = void;
+/**
+* Initializes the contract owned by `owner_id` with
+* default metadata (for example purposes only).
+*
+* @contractMethod change
+*/
+export interface NewDefaultMeta {
+    args: {
+        owner_id: AccountId;
+    };
+    options: {
+        /** Units in gas
+        * @pattern [0-9]+
+        * @default "30000000000000"
+        */
+        gas?: string;
+        /** Units in yoctoNear
+        * @default 0
+        */
+        attachedDeposit?: Balance;
+    };
+}
+export declare type NewDefaultMeta__Result = void;
 /**
 * Revoke an approved account for a specific token.
 *
@@ -1032,3 +1094,45 @@ export interface NftTokensForOwner {
     };
 }
 export declare type NftTokensForOwner__Result = Token[];
+/**
+*
+* @contractMethod change
+*/
+export interface NftMintTwo {
+    args: {
+        token_owner_id: AccountId;
+    };
+    options: {
+        /** Units in gas
+        * @pattern [0-9]+
+        * @default "30000000000000"
+        */
+        gas?: string;
+        /** Units in yoctoNear
+        * @default 0
+        */
+        attachedDeposit?: Balance;
+    };
+}
+export declare type NftMintTwo__Result = Token;
+/**
+*
+* @contractMethod change
+*/
+export interface NftMintOne {
+    args: {
+        token_owner_id: AccountId;
+    };
+    options: {
+        /** Units in gas
+        * @pattern [0-9]+
+        * @default "30000000000000"
+        */
+        gas?: string;
+        /** Units in yoctoNear
+        * @default 0
+        */
+        attachedDeposit?: Balance;
+    };
+}
+export declare type NftMintOne__Result = Token;

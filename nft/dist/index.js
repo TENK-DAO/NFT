@@ -361,6 +361,38 @@ var Contract = /** @class */ (function () {
         return helper_1.transactions.functionCall("nft_transfer_call", args, (_a = options === null || options === void 0 ? void 0 : options.gas) !== null && _a !== void 0 ? _a : helper_1.DEFAULT_FUNCTION_CALL_GAS, (_b = options === null || options === void 0 ? void 0 : options.attachedDeposit) !== null && _b !== void 0 ? _b : new helper_1.BN(0));
     };
     /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    Contract.prototype.new_default_meta = function (args, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = helper_1.providers).getTransactionLastResult;
+                        return [4 /*yield*/, this.new_default_metaRaw(args, options)];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                }
+            });
+        });
+    };
+    /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    Contract.prototype.new_default_metaRaw = function (args, options) {
+        return this.account.functionCall(__assign({ contractId: this.contractId, methodName: "new_default_meta", args: args }, options));
+    };
+    /**
+    * Initializes the contract owned by `owner_id` with
+    * default metadata (for example purposes only).
+    */
+    Contract.prototype.new_default_metaTx = function (args, options) {
+        var _a, _b;
+        return helper_1.transactions.functionCall("new_default_meta", args, (_a = options === null || options === void 0 ? void 0 : options.gas) !== null && _a !== void 0 ? _a : helper_1.DEFAULT_FUNCTION_CALL_GAS, (_b = options === null || options === void 0 ? void 0 : options.attachedDeposit) !== null && _b !== void 0 ? _b : new helper_1.BN(0));
+    };
+    /**
     * Revoke an approved account for a specific token.
     *
     * Requirements
@@ -629,6 +661,46 @@ var Contract = /** @class */ (function () {
     */
     Contract.prototype.nft_tokens_for_owner = function (args, options) {
         return this.account.viewFunction(this.contractId, "nft_tokens_for_owner", args, options);
+    };
+    Contract.prototype.nft_mint_two = function (args, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = helper_1.providers).getTransactionLastResult;
+                        return [4 /*yield*/, this.nft_mint_twoRaw(args, options)];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                }
+            });
+        });
+    };
+    Contract.prototype.nft_mint_twoRaw = function (args, options) {
+        return this.account.functionCall(__assign({ contractId: this.contractId, methodName: "nft_mint_two", args: args }, options));
+    };
+    Contract.prototype.nft_mint_twoTx = function (args, options) {
+        var _a, _b;
+        return helper_1.transactions.functionCall("nft_mint_two", args, (_a = options === null || options === void 0 ? void 0 : options.gas) !== null && _a !== void 0 ? _a : helper_1.DEFAULT_FUNCTION_CALL_GAS, (_b = options === null || options === void 0 ? void 0 : options.attachedDeposit) !== null && _b !== void 0 ? _b : new helper_1.BN(0));
+    };
+    Contract.prototype.nft_mint_one = function (args, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = helper_1.providers).getTransactionLastResult;
+                        return [4 /*yield*/, this.nft_mint_oneRaw(args, options)];
+                    case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+                }
+            });
+        });
+    };
+    Contract.prototype.nft_mint_oneRaw = function (args, options) {
+        return this.account.functionCall(__assign({ contractId: this.contractId, methodName: "nft_mint_one", args: args }, options));
+    };
+    Contract.prototype.nft_mint_oneTx = function (args, options) {
+        var _a, _b;
+        return helper_1.transactions.functionCall("nft_mint_one", args, (_a = options === null || options === void 0 ? void 0 : options.gas) !== null && _a !== void 0 ? _a : helper_1.DEFAULT_FUNCTION_CALL_GAS, (_b = options === null || options === void 0 ? void 0 : options.attachedDeposit) !== null && _b !== void 0 ? _b : new helper_1.BN(0));
     };
     return Contract;
 }());
